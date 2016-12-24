@@ -1,0 +1,106 @@
+*{
+	box-sizing: border-box;
+	font-size: inherit !important;
+	font-family: sans-serif;
+	--primary-color: #A8D8EA;
+	--secondary-color: #FCBAD3;
+	--highlight-color: #AA96DA;
+}
+
+body, html {
+	margin: 0;
+}
+
+body {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+}
+#box{
+	flex: 1;
+ 	display: flex;
+	overflow-y: auto;
+}
+
+#super{
+	flex: 1;
+ 	display: flex;
+}
+
+#container {
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-end;
+	min-height: min-content;
+	width: 100%;
+}
+
+#name{
+	padding: 4px;
+	outline: none;
+	border: none;
+	background: var(--secondary-color);
+	color: #fff;
+	border-top: solid 1px #ccc;
+	display: flex;
+	transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#chat {
+	padding: 16px;
+	outline: none;
+	border: none;
+	display: flex;
+}
+
+.chat {
+	padding: 8px;
+}
+
+.me{
+	background: #F5F5F5;
+}
+
+.other {
+	background: #ddd;
+}
+
+#usersContainer{
+	background: #eee;
+	min-width: 200px;
+	max-width: 300px;
+	display: flex;
+	flex-flow: column;
+	border-left: solid 1px #ccc;
+}
+
+#title{
+	background: var(--primary-color);
+	color: #fff;
+	padding: 8px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.user{
+	padding: 4px;
+	width: 100%;
+	overflow-wrap: break-word;
+	display: flex;
+	align-items: center;
+}
+
+.user:nth-of-type(even){
+	background: #dedede;
+}
+
+.username {
+	color: var(--highlight-color);
+}
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  display: block;
+  opacity: 0.7;
+}
