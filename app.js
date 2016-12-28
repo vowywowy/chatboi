@@ -5,6 +5,12 @@ var path = require('path');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+//enable use of uws
+io.engine.ws = new (require('uws').Server)({
+    noServer: true,
+    perMessageDeflate: false
+});
+
 //setting static asset path
 app.use(express.static(path.join(__dirname, 'public')));
 app.get("/", (req, res) => {
@@ -13,7 +19,7 @@ app.get("/", (req, res) => {
 
 //array to hold connected users
 var users = [];
-io.on('connection', (socket) => {
+io.on('connection', function(socket) {
 	//send the client it's own id
 	socket.send(socket.id);
 	var rename = socket.id;
@@ -64,6 +70,6 @@ io.on('connection', (socket) => {
 });
 
 //we listen on 80
-http.listen(port = 80, () => {
+http.listen(port = 80, function() {
 	console.log('listening on *:' + port);
 });

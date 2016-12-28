@@ -1,9 +1,11 @@
 # Chatboi
 This is a drop-in, easily deployable, chat room written for Node.js. It's written mainly as a demonstration but it's definitely fully usable. As this is more a demonstration application you'll find the code is commented quite fully and explains exactly the purpose of each block. It uses the following packages:
+
 Package|Reason
 ---|---
 [Express](http://expressjs.com/)|Serves the static assets better than default Node
 [Socket.io](http://socket.io/)|Websockets are used to exchange chat messages
+[µWebSockets](https://github.com/uWebSockets/uWebSockets)|A better web socket engine
 
 There are no front end dependencies apart from a stereotypical modern webstack.
 

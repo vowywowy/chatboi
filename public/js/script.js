@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		myid;
 
 	//get the id of this client's socket
-	socket.on('message', (id) => {
+	socket.on('message', function(id) {
 		myid = id;
 	});
 
 	//when we receive the list of users...
-	socket.on('list', (users) => {
+	socket.on('list', function(users) {
 		var current = document.getElementById("users");
 		//remove the outdated list
 		while (current.firstChild) {
@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			if ((e.keyCode == 13 && !e.shiftKey) || (e.keyCode == 13 && e.target.id == 'name')) {
 				e.preventDefault();
 				var input = document.getElementById(i);
-				if (e.target.id == 'name'){
-					input.setAttribute('placeholder','Typing as ' + input.textContent + " (click to change)")
+				if (e.target.id == 'name') {
+					input.setAttribute('placeholder', 'Typing as ' + input.textContent + " (click to change)")
 				}
 				//string testing, of course this is mirrored on the server
 				if (/\S/.test(input.innerText)) {
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	var nameInput = document.getElementById('name');
 	//listen for focus and blur on this ^
-	['focus', 'blur'].forEach(e =>
+	['focus', 'blur'].forEach(function(e) {
 		nameInput.addEventListener(e, (e) => {
 			if (e.type == 'focus') {
 				nameInput.style.padding = "16px";
@@ -54,10 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				nameInput.style.padding = "4px";
 			}
 		})
-	);
+	});
 
 	//when we receive a new message...
-	socket.on('chat', (text, user, id) => {
+	socket.on('chat', function(text, user, id) {
 		//create the element appropriately
 		var chat = document.createElement('div'),
 			userSpan = document.createElement('span'),
