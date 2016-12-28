@@ -1,12 +1,13 @@
-//express and socket.io
+//express, socket.io, and uws
 var express = require('express');
 var app = express();
 var path = require('path');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var uws = require('uws').Server;
 
 //enable use of uws
-io.engine.ws = new (require('uws').Server)({
+io.engine.ws = new (uws)({
     noServer: true,
     perMessageDeflate: false
 });
