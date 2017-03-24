@@ -86,3 +86,6 @@ $RECYCLE.BIN/
 
 #ai
 *.ai
+
+#nodemon
+nodemon.json

@@ -32,11 +32,11 @@ body {
 	display: flex;
 	flex-flow: column;
 	min-height: min-content;
+	width: 100%;
 }
 
 #container {
 	justify-content: flex-end;
-	width: 100%;
 }
 
 #name {
@@ -112,4 +112,5 @@ body {
   content: attr(placeholder);
   display: flex;
   opacity: 0.7;
+  cursor: text;
 }

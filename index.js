@@ -21,30 +21,34 @@ app.get("/", (req, res) => {
 //array to hold connected users
 let users = [];
 io.on('connection', (socket) => {
-	//send the client it's own id
-	socket.send(socket.id);
+	//tell the client it's own id
+	socket.emit('id', socket.id);
 
-	//add it to the array, name will hold the user's desired name
+	//send the master user list to the new connection
+	socket.emit('list', users);
+
+	//tell everyone the new user's info
+	io.emit('newUser', [{id: socket.id, name: socket.id}]);
+
+	//add new info to the array, name will hold the user's desired name
 	users.push({
 		id: socket.id,
 		name: socket.id
 	});
-	//send the new user list
-	io.emit('list', users);
 
 	//on rename event
 	socket.on('name', renameEv);
 	function renameEv(name) {
 		//verify it; 1-16 characters
 		if (typeof name !== "undefined") {
-			const rename = name.substr(0, 15);
+			name = name.substr(0, 15);
 			//find that users id in the list
-			const obj = users.find((user) => (user).id == socket.id);
-			let index = users.indexOf(obj);
-			//modify the list with the new name
-			users.fill(obj.name = rename, index, index++);
-			//send that new user list
-			io.emit('list', users);
+			const user = users.find((old) => old.id == socket.id);
+			let index = users.indexOf(user);
+			//modify the master list with the new name
+			users.fill(user.name = name, index, index++);
+			//send renamed user
+			io.emit('rename', user);
 		}
 	}
 
@@ -54,21 +58,21 @@ io.on('connection', (socket) => {
 		//verify it
 		if (typeof chat !== 'undefined' && /\S/.test(chat)) {
 			//send it to everyone
-			io.emit('chat', chat.trim(), rename, socket.id);
+			io.emit('chat', { text: chat.trim(), id: socket.id });
 		}
 	}
 
 	//when a user leaves
 	socket.on('disconnect', disconnectEv);
 	function disconnectEv() {
-		const obj = users.find((user) => user.id == socket.id);
-		const index = users.indexOf(obj);
+		const user = users.find((old) => old.id == socket.id);
+		const index = users.indexOf(user);
 		//splice the list where the user was found
 		if (index > -1) {
 			users.splice(index, 1);
 		}
-		//send that new list
-		io.emit('list', users);
+		//send user to remove
+		io.emit('oldUser', user);
 	}
 });
 
