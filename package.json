@@ -2,15 +2,11 @@
   "name": "chatboi",
   "version": "1.0.0",
   "description": "A drop-in chat room",
-  "main": "app.js",
+  "main": "index.js",
   "dependencies": {
     "express": "^4.14.0",
     "socket.io": "^1.7.2",
     "uws": "^0.12.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

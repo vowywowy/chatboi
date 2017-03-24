@@ -16,26 +16,30 @@ body {
 	flex-flow: column;
 	height: 100%;
 }
-#box{
+
+#super {
+	flex: 1;
+ 	display: flex;
+}
+
+.outer-scroll-flex{
 	flex: 1;
  	display: flex;
 	overflow-y: auto;
 }
 
-#super{
-	flex: 1;
- 	display: flex;
+.inner-scroll-flex{
+	display: flex;
+	flex-flow: column;
+	min-height: min-content;
 }
 
 #container {
-	display: flex;
-	flex-flow: column;
 	justify-content: flex-end;
-	min-height: min-content;
 	width: 100%;
 }
 
-#name{
+#name {
 	padding: 4px;
 	outline: none;
 	border: none;
@@ -65,7 +69,7 @@ body {
 	background: #ddd;
 }
 
-#usersContainer{
+#usersContainer {
 	background: #eee;
 	min-width: 200px;
 	max-width: 300px;
@@ -74,16 +78,17 @@ body {
 	border-left: solid 1px #ccc;
 }
 
-#title{
+#title {
 	background: var(--primary-color);
 	color: #fff;
 	padding: 8px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	min-height: min-content;
 }
 
-.user{
+.user {
 	padding: 4px;
 	width: 100%;
 	overflow-wrap: break-word;
@@ -91,16 +96,20 @@ body {
 	align-items: center;
 }
 
-.user:nth-of-type(even){
+.user:nth-of-type(even) {
 	background: #dedede;
 }
 
 .username {
+	color: var(--primary-color);
+}
+
+.other .username {
 	color: var(--highlight-color);
 }
 
 [contenteditable=true]:empty:before {
   content: attr(placeholder);
-  display: block;
+  display: flex;
   opacity: 0.7;
 }
