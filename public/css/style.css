@@ -48,6 +48,7 @@ body {
 	border-top: solid 1px #ccc;
 	display: flex;
 	transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	overflow-x: auto;
 }
 
 #chat {
@@ -106,6 +107,10 @@ body {
 
 .other .username {
 	color: var(--highlight-color);
+}
+
+.increment {
+	color: var(--secondary-color);
 }
 
 [contenteditable=true]:empty:before {

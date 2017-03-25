@@ -48,17 +48,29 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 		let diff = {
 			fluff: '',
-			inc: ''
+			inc: '',
+			cruff: ''
 		};
+
 		while (names.find((name) => name == user.name + diff.fluff + diff.inc)) {
 			if (diff.fluff == '') {
-				diff.fluff = ' - ';
+				diff.fluff = '(';
 				diff.inc++;
+				diff.cruff = ')';
 			}
 			diff.inc++;
 		}
-		const change = document.getElementById(user.id);
-		change.textContent = user.name + diff.fluff + diff.inc;
+		if(myid == user.id){
+			document.getElementById('name').setAttribute(
+				'placeholder',
+				'Typing as ' + user.name + diff.fluff + diff.inc + diff.cruff + ' (click to change)'
+			);
+		}
+		const incrementSpan = document.createElement('span');
+		incrementSpan.setAttribute('class', 'increment');
+		incrementSpan.textContent = diff.fluff + diff.inc + diff.cruff;
+		document.getElementById(user.id).textContent = user.name;
+		document.getElementById(user.id).appendChild(incrementSpan);
 	});
 
 	//on a user's disconnection...
@@ -75,10 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				e.preventDefault();
 
 				const input = document.getElementById(i);
-				if (e.target.id == 'name') {
-					input.setAttribute('placeholder', 'Typing as ' + input.textContent + ' (click to change)');
-				}
-
 				//string testing, of course this is mirrored on the server
 				if (/\S/.test(input.innerText)) {
 					socket.emit(e.target.id, input.innerText.trim());
@@ -89,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				e.preventDefault();
 				e.target.id == 'name'
 					? (
-						document.getElementById('chat').focus(), 
+						document.getElementById('chat').focus(),
 						document.execCommand('selectAll', false, null)
 					)
 					: (
@@ -137,3 +145,29 @@ document.addEventListener('DOMContentLoaded', () => {
 	//always refocus the chatinput
 	document.getElementById('name').focus();
 });
+
+/*
+	//web crypto!
+	crypto.subtle.generateKey(
+		{
+			name: 'AES-GCM',
+			length: 128
+		},
+		false,
+		[
+			"encrypt",
+			"decrypt"
+		]
+	).then((key) => {
+		crypto.subtle.encrypt(
+			{
+				name: 'AES-GCM',
+				iv: crypto.getRandomValues(new Uint8Array(12)),
+			},
+			key,
+			new TextEncoder().encode(input.innerText.trim())
+		).then((encrypted) => {
+			console.log(encrypted);
+		});
+	});
+*/
